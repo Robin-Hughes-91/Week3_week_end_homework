@@ -17,18 +17,45 @@ class Ticket
     ticket = SqlRunner.run(sql, values)[0];
     @id = ticket['id'].to_i
   end
-  #
-  # def update()
-  #   sql = "UPDATE stars SET (movie_id, star_id, fee) = ($1, $2, $3) WHERE id = $4"
-  #   values = [@movie_id, @star_id, @fee, @id]
-  #   SqlRunner.run(sql, values)
-  # end
-  #
-  # def delete()
-  #   sql = "DELETE * FROM castings where id = $1"
-  #   values = [@id]
-  #   SqlRunner.run(sql, values)
-  # end
+
+  def update()
+    sql = "UPDATE tickets SET (customer_id, film_id) = ($1, $2) WHERE id = $3"
+    values = [@customer_id, @film_id, @id]
+    SqlRunner.run(sql, values)
+  end
+
+  def delete()
+    sql = "DELETE FROM tickets where id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
+  end
+
+  def self.all()
+    sql = "SELECT * FROM tickets"
+    values = []
+    tickets = SqlRunner.run(sql, values)
+    result = tickets.map { |ticket| Ticket.new( ticket ) }
+    return result
+  end
+
+  def self.delete_all()
+    sql = "DELETE FROM tickets"
+    SqlRunner.run(sql)
+  end
+
+  def film()
+    sql = "SELECT * FROM films WHERE id = $1"
+    values = [@film_id]
+    film = SqlRunner.run(sql, values).first
+    return Film.new(film)
+  end
+
+  def customer()
+    sql = "SELECT * FROM customers WHERE id = $1"
+    values = [@customer_id]
+    customer = SqlRunner.run(sql, values).first
+    return Customer.new(customer)
+  end
 
 
 

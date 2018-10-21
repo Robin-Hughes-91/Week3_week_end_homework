@@ -4,9 +4,9 @@ require_relative( 'models/customer' )
 
 require( 'pry-byebug' )
 
-# Ticket.delete_all()
-# Film.delete_all()
-# Customer.delete_all()
+Ticket.delete_all()
+Film.delete_all()
+Customer.delete_all()
 
 
  # FILM TABLE INFO
@@ -50,10 +50,12 @@ ticket1 = Ticket.new({
 ticket1.save()
 
 ticket2 = Ticket.new({
-  'customer_id' => customer2.id,
+  'customer_id' => customer1.id,
   'film_id' => film2.id
   })
 ticket2.save()
+
+
 
 
 
