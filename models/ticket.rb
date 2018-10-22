@@ -43,6 +43,8 @@ class Ticket
     SqlRunner.run(sql)
   end
 
+
+# Find film for each ticket
   def film()
     sql = "SELECT * FROM films WHERE id = $1"
     values = [@film_id]
@@ -50,6 +52,7 @@ class Ticket
     return Film.new(film)
   end
 
+# Find Customer for each ticket
   def customer()
     sql = "SELECT * FROM customers WHERE id = $1"
     values = [@customer_id]
